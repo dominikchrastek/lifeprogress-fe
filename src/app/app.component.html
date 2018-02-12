@@ -1,0 +1,10 @@
+<h1>
+  {{title}}
+  <span *ngIf="user">{{user.name}}</span>
+</h1>
+
+<button routerLink="/wealth">Wealth</button>
+<button routerLink="/life">Life</button>
+<button routerLink="">Home</button>
+
+<router-outlet></router-outlet>

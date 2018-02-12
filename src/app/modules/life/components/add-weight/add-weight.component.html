@@ -1,0 +1,13 @@
+<div>
+  <label>weight:
+    <input [(ngModel)]="value" placeholder="value">
+  </label>
+  <label>date:
+    <input [(ngModel)]="timestamp" placeholder="date" type="date">
+  </label>
+  <select [(ngModel)]=" unit ">
+    <option *ngFor="let unit of units " [ngValue]="unit ">{{unit.name}}</option>
+  </select>
+
+  <button (click)="save() ">save</button>
+</div>

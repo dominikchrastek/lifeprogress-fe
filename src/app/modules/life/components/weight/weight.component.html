@@ -1,0 +1,7 @@
+<p *ngIf="units">
+  <life-add-weight [units]="units" [saveWeight]="saveWeight"></life-add-weight>
+</p>
+<p *ngIf="weightService.weights">
+  {{ weightService.weights.length }}
+  <life-weight-chart [weights]="weightService.weights"></life-weight-chart>
+</p>
