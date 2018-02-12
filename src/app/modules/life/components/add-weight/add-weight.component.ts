@@ -18,7 +18,6 @@ export class AddWeightComponent implements OnInit {
   constructor(private weightService: WeightService) {}
 
   save() {
-    console.log(this.unit);
     this.saveWeight({
       value: Number(this.value),
       unit: this.unit.id,

@@ -10,6 +10,15 @@ const httpOptions = {
     'Content-Type': 'application/json',
   }),
 };
+function compare(a: Weight, b: Weight) {
+  if (a.timestamp < b.timestamp) {
+    return -1;
+  }
+  if (a.timestamp > b.timestamp) {
+    return 1;
+  }
+  return 0;
+}
 
 @Injectable()
 export class WeightService {
@@ -24,8 +33,11 @@ export class WeightService {
       this.http
         .get<WeightResponse<Weight[]>>(url)
         .subscribe((res: WeightResponse<Weight[]>) => {
-          this.weights = res.data;
-          observer.next(this.weights);
+          if (res.data) {
+            this.weights = res.data;
+            observer.next(this.weights);
+            observer.complete();
+          }
           observer.complete();
         });
     });
@@ -37,8 +49,14 @@ export class WeightService {
       return this.http
         .post<WeightResponse<Weight>>(url, weight, httpOptions)
         .subscribe(({ data }) => {
-          console.log([...this.weights, data]);
           this.weights = [...this.weights, data];
+          // if the last's timestamp is smaller than the last's - 1, then sort it
+          if (
+            this.weights.length > 2 &&
+            this.weights[this.weights.length - 2].timestamp > data.timestamp
+          ) {
+            this.weights.sort(compare);
+          }
           observer.next(this.weights);
           observer.complete();
         });
