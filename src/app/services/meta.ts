@@ -4,5 +4,6 @@ export class MetaUnit {
 }
 export class Meta {
   units: MetaUnit[];
-  assets: MetaUnit[];
+  ws_types: MetaUnit[];
+  currencies: MetaUnit[];
 }

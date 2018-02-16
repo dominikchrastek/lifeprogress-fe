@@ -8,14 +8,14 @@ import { Observable } from 'rxjs/Observable';
 export class UserService {
   private userUrl = 'http://localhost:3000/api/user/';
   private user: User;
-  private userId: number;
+  private userId: string;
 
   constructor(private http: HttpClient) {
     // TODO: sign in
-    this.userId = 1;
+    this.userId = '8cbd81c0-9f94-44cc-8eac-6798720bbf67';
   }
 
-  getId(): number {
+  getId(): string {
     return this.userId;
   }
 
