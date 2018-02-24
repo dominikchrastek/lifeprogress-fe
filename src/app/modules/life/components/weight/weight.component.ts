@@ -22,24 +22,23 @@ export class WeightComponent implements OnInit {
     private userService: UserService,
   ) {}
 
-  getMeta(): void {
-    this.meta$ = this.metaService.getMeta();
+  getWeight(): void {
+    this.userService
+      .getUser()
+      .flatMap(user => this.weightService.fetchWeights(user.id))
+      .subscribe();
   }
 
-  getWeight() {
-    this.weights$ = this.userService
+  saveWeight = (weight: PostWeight): void => {
+    this.userService
       .getUser()
-      .flatMap(user => this.weightService.fetchWeights(user.id));
-  }
-
-  saveWeight = (weight: PostWeight) => {
-    this.weights$ = this.userService
-      .getUser()
-      .flatMap(user => this.weightService.addWeight(user.id, weight));
+      .flatMap(user => this.weightService.addWeight(user.id, weight))
+      .subscribe();
   };
 
   ngOnInit() {
-    this.getMeta();
+    this.weights$ = this.weightService.weights$;
+    this.meta$ = this.metaService.getMeta();
     this.getWeight();
   }
 }

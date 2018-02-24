@@ -35,13 +35,12 @@ export class WeightService {
 
   constructor(private http: HttpClient, private userService: UserService) {}
 
-  addWeight(userId: string, weight: PostWeight): Observable<Weight[]> {
+  addWeight(userId: string, weight: PostWeight): Observable<Weight> {
     const url = `${this.weightUrl}/${userId}/weight`;
     return this.http
       .post<WeightResponse<Weight>>(url, weight, httpOptions)
       .map(res => res.data)
-      .do(w => this.subject.next(sortStuff([w, ...this.subject.getValue()])))
-      .map(w => this.subject.getValue());
+      .do(w => this.subject.next(sortStuff([w, ...this.subject.getValue()])));
   }
 
   fetchWeights(userId: string): Observable<Weight[]> {
