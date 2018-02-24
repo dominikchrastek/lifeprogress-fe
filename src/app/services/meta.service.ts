@@ -2,26 +2,22 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { Meta } from './meta';
-import { Observable } from 'rxjs/Observable';
+import { Observable, BehaviorSubject } from 'rxjs/Rx';
 
 @Injectable()
 export class MetaService {
   private metaUrl = 'http://localhost:3000/api/meta';
-  private meta: Meta;
+  private subject = new BehaviorSubject<Meta>(null);
+  private meta$: Observable<Meta> = this.subject.asObservable();
 
   constructor(private http: HttpClient) {}
 
   getMeta(): Observable<Meta> {
-    return new Observable(observer => {
-      if (this.meta) {
-        observer.next(this.meta);
-        return observer.complete();
-      }
-      this.http.get(this.metaUrl).subscribe((meta: Meta) => {
-        this.meta = meta;
-        observer.next(meta);
-        observer.complete();
-      });
+    if (this.subject.getValue()) {
+      return this.subject;
+    }
+    return this.http.get<Meta>(this.metaUrl).do(meta => {
+      this.subject.next(meta);
     });
   }
 }

@@ -1,6 +1,6 @@
-<p *ngIf="units">
-  <life-add-weight [units]="units" [saveWeight]="saveWeight"></life-add-weight>
+<p *ngIf="meta$ | async as meta">
+  <life-add-weight [units]="meta.units" [saveWeight]="saveWeight"></life-add-weight>
 </p>
-<p *ngIf="weightService.weights.length !== 0">
-  <life-weight-chart [weights]="weightService.weights"></life-weight-chart>
+<p *ngIf="weights$ | async as weights ">
+  <life-weight-chart [weights]="weights"></life-weight-chart>
 </p>

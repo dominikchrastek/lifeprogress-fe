@@ -1,8 +1,8 @@
-export class User {
+export interface User {
   id: string;
   name: string;
 }
 
-export class UserData {
+export interface UserData {
   data: User;
 }

@@ -1,15 +1,15 @@
-export class WeightResponse<T> {
+export interface WeightResponse<T> {
   data: T;
 }
 
-export class Weight {
+export interface Weight {
   id: string;
   value: number;
   unit: string;
   timestamp: string;
 }
 
-export class PostWeight {
+export interface PostWeight {
   unit: string;
   value: number;
   timestamp?: string;

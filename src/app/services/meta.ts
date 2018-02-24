@@ -1,8 +1,8 @@
-export class MetaUnit {
+export interface MetaUnit {
   id: string;
   name: string;
 }
-export class Meta {
+export interface Meta {
   units: MetaUnit[];
   ws_types: MetaUnit[];
   currencies: MetaUnit[];

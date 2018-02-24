@@ -1,3 +1,4 @@
+import { Observable } from 'rxjs/Observable';
 import { Component, OnInit } from '@angular/core';
 
 import { MetaService } from './services/meta.service';
@@ -12,25 +13,16 @@ import { User } from './services/user';
 })
 export class AppComponent {
   title = 'app';
-  meta: Meta;
-  user: User;
+  meta$: Observable<Meta>;
+  user$: Observable<User>;
 
   constructor(
     private metaService: MetaService,
     private userService: UserService,
   ) {}
 
-  getMeta(): void {
-    this.metaService.getMeta().subscribe(meta => (this.meta = meta));
-  }
-  getUser(): void {
-    this.userService.getUser().subscribe(user => {
-      this.user = user;
-    });
-  }
-
   ngOnInit() {
-    this.getMeta();
-    this.getUser();
+    this.user$ = this.userService.getUser();
+    this.meta$ = this.metaService.getMeta();
   }
 }

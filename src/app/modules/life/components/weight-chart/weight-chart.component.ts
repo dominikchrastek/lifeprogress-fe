@@ -49,6 +49,7 @@ export class WeightChartComponent implements OnChanges {
     ];
   }
   ngOnInit() {
+    console.log(this.weights);
     this.setData();
   }
   ngOnChanges() {

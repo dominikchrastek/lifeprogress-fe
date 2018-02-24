@@ -1,6 +1,6 @@
 <h1>
   {{title}}
-  <span *ngIf="user">{{user.name}}</span>
+  <span *ngIf="user$ | async as user">{{user.name}}</span>
 </h1>
 
 <button routerLink="/wealth">Wealth</button>

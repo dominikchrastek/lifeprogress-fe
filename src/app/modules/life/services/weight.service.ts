@@ -1,9 +1,9 @@
+import { User } from './../../../services/user';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-
-import { Weight, WeightResponse, PostWeight } from './weight';
-import { Observable } from 'rxjs/Observable';
 import { UserService } from '../../../services/user.service';
+import { Observable, BehaviorSubject } from 'rxjs/Rx';
+import { Weight, WeightResponse, PostWeight } from './weight';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -20,46 +20,35 @@ function compare(a: Weight, b: Weight) {
   return 0;
 }
 
+const sortStuff = data => {
+  if (data.length > 2 && data[data.length - 2].timestamp > data.timestamp) {
+    data.sort(compare);
+  }
+  return data;
+};
+
 @Injectable()
 export class WeightService {
   private weightUrl = 'http://localhost:3000/api/user';
-  weights: Weight[] = [];
+  private subject = new BehaviorSubject<Weight[]>([]);
+  weights$: Observable<Weight[]> = this.subject.asObservable();
 
   constructor(private http: HttpClient, private userService: UserService) {}
 
-  fetchWeights(): Observable<Weight[]> {
-    const url = `${this.weightUrl}/${this.userService.getId()}/weight`;
-    return new Observable(observer => {
-      this.http
-        .get<WeightResponse<Weight[]>>(url)
-        .subscribe((res: WeightResponse<Weight[]>) => {
-          if (res.data) {
-            this.weights = res.data;
-            observer.next(this.weights);
-            observer.complete();
-          }
-          observer.complete();
-        });
-    });
+  addWeight(userId: string, weight: PostWeight): Observable<Weight[]> {
+    const url = `${this.weightUrl}/${userId}/weight`;
+    return this.http
+      .post<WeightResponse<Weight>>(url, weight, httpOptions)
+      .map(res => res.data)
+      .do(w => this.subject.next(sortStuff([w, ...this.subject.getValue()])))
+      .map(w => this.subject.getValue());
   }
 
-  addWeight(weight: PostWeight): Observable<Weight[]> {
-    const url = `${this.weightUrl}/${this.userService.getId()}/weight`;
-    return new Observable(observer => {
-      return this.http
-        .post<WeightResponse<Weight>>(url, weight, httpOptions)
-        .subscribe(({ data }) => {
-          this.weights = [...this.weights, data];
-          // if the last's timestamp is smaller than the last's - 1, then sort it
-          if (
-            this.weights.length > 2 &&
-            this.weights[this.weights.length - 2].timestamp > data.timestamp
-          ) {
-            this.weights.sort(compare);
-          }
-          observer.next(this.weights);
-          observer.complete();
-        });
-    });
+  fetchWeights(userId: string): Observable<Weight[]> {
+    const url = `${this.weightUrl}/${userId}/weight`;
+    return this.http
+      .get<WeightResponse<Weight[]>>(url)
+      .map(res => res.data)
+      .do(weights => this.subject.next(weights));
   }
 }
