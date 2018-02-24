@@ -1,21 +1,21 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { WealthDashboardComponent } from './wealth-dashboard.component';
+import { DashboardComponent } from './dashboard.component';
 
-describe('WealthDashboardComponent', () => {
-  let component: WealthDashboardComponent;
-  let fixture: ComponentFixture<WealthDashboardComponent>;
+describe('DashboardComponent', () => {
+  let component: DashboardComponent;
+  let fixture: ComponentFixture<DashboardComponent>;
 
   beforeEach(
     async(() => {
       TestBed.configureTestingModule({
-        declarations: [WealthDashboardComponent],
+        declarations: [DashboardComponent],
       }).compileComponents();
     }),
   );
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(WealthDashboardComponent);
+    fixture = TestBed.createComponent(DashboardComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

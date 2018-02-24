@@ -1,0 +1,15 @@
+<li *ngFor="let wsource of wsources">
+  <div>
+    name: {{wsource.name}}
+  </div>
+  <div>
+    type: {{wsource.type}}
+  </div>
+  <div>
+    currencies:
+    <li *ngFor="let currency of wsource.currencies">
+      <span>{{currency.name}}</span>
+    </li>
+  </div>
+  <button (click)="delete(wsource.id)">delete</button>
+</li>

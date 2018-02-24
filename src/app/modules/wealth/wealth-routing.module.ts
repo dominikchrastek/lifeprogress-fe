@@ -1,12 +1,24 @@
+import { CurrencyComponent } from './components/currency/currency.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-
-import { WealthDashboardComponent } from './wealth-dashboard/wealth-dashboard.component';
+import { WsourceComponent } from './components/wsource/wsource.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: WealthDashboardComponent,
+    component: DashboardComponent,
+  },
+  {
+    path: 'currency',
+    component: CurrencyComponent,
+  },
+  {
+    path: 'wealth-source',
+    component: WsourceComponent,
+  },
+  {
+    path: '**',
   },
 ];
 

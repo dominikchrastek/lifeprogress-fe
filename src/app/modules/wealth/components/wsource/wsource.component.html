@@ -1,13 +1,6 @@
-<div>
-  <label>name:
-    <input [(ngModel)]="name" placeholder="name">
-  </label>
-  <select [(ngModel)]="type">
-    <option *ngFor="let type of types " [ngValue]="type">{{type.name}}</option>
-  </select>
-  <select [(ngModel)]="currency">
-    <option *ngFor="let currency of currencies " [ngValue]="currency">{{currency.name}}</option>
-  </select>
-
-  <button (click)="save()">save</button>
+<div *ngIf="meta$ | async as meta">
+  <span *ngIf="wsources$ | async as wsources">
+    <wealth-wsource-add [create]="create" [types]="meta.ws_types" [currencies]="meta.currencies" [wsources]="wsources"></wealth-wsource-add>
+    <wealth-wsource-list [delete]="delete" [wsources]="wsources"></wealth-wsource-list>
+  </span>
 </div>

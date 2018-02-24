@@ -1,0 +1,6 @@
+<li *ngFor="let currency of currencies">
+  <div>
+    {{currency.name}}
+    <button (click)="handleDelete(currency.id)">remove</button>
+  </div>
+</li>

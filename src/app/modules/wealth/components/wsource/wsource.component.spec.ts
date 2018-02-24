@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { WsourceComponent } from './wsource.component';
 
-describe('WsouceComponent', () => {
+describe('WsourceComponent', () => {
   let component: WsourceComponent;
   let fixture: ComponentFixture<WsourceComponent>;
 

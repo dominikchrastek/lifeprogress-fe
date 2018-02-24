@@ -1,7 +1,9 @@
+import { MetaService } from './../../../../services/meta.service';
+import { WsourceService } from './../../services/wsource.service';
+import { Observable } from 'rxjs/Rx';
 import { WSource } from './../../services/wsource';
 import { Component, OnInit, Input } from '@angular/core';
-import { WsourceService } from '../../services/wsource.service';
-import { MetaUnit } from '../../../../services/meta';
+import { MetaUnit, Meta } from '../../../../services/meta';
 
 @Component({
   selector: 'wealth-wsource',
@@ -9,26 +11,29 @@ import { MetaUnit } from '../../../../services/meta';
   styleUrls: ['./wsource.component.css'],
 })
 export class WsourceComponent implements OnInit {
-  @Input() types: MetaUnit[];
-  @Input() currencies: MetaUnit[];
-  @Input() wsources: WSource[];
-  type: MetaUnit;
-  currency: MetaUnit;
-  name: string = '';
+  wsources$: Observable<WSource[]>;
+  meta$: Observable<Meta>;
 
-  constructor(private wsource: WsourceService) {}
-
-  save() {
-    this.wsource.create({
-      name: this.name,
-      type: this.type.id,
-      currencies: this.currencies,
-    });
-  }
+  constructor(
+    private wsourceService: WsourceService,
+    private metaService: MetaService,
+  ) {}
 
   ngOnInit() {
-    this.type = this.types[0];
-    this.currency = this.currencies[0];
-    console.log(this.wsources);
+    this.wsources$ = this.wsourceService.wsources$;
+    this.getAll();
+    this.meta$ = this.metaService.getMeta();
   }
+
+  getAll() {
+    this.wsourceService.getAll().subscribe(null, console.error);
+  }
+
+  create = wsource => {
+    this.wsourceService.create(wsource).subscribe(null, console.error);
+  };
+
+  delete = id => {
+    this.wsourceService.delete(id).subscribe(null, console.error);
+  };
 }

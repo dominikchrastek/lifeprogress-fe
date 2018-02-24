@@ -8,7 +8,7 @@ import { Observable, BehaviorSubject } from 'rxjs/Rx';
 export class MetaService {
   private metaUrl = 'http://localhost:3000/api/meta';
   private subject = new BehaviorSubject<Meta>(null);
-  private meta$: Observable<Meta> = this.subject.asObservable();
+  meta$: Observable<Meta> = this.subject.asObservable();
 
   constructor(private http: HttpClient) {}
 

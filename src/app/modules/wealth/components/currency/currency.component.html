@@ -1,0 +1,4 @@
+<div *ngIf="currencies$ | async as currencies">
+  <wealth-currency-add [create]="create"></wealth-currency-add>
+  <wealth-currency-list [currencies]="currencies" [delete]="delete"></wealth-currency-list>
+</div>

@@ -4,6 +4,8 @@ import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { UserService } from '../../../services/user.service';
 import { WSource, WSourceResponse } from './wsource';
+import { Response } from '../../../models/response';
+import * as R from 'ramda';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -13,19 +15,33 @@ const httpOptions = {
 
 @Injectable()
 export class WsourceService {
-  private wsourceUrl = 'http://localhost:3000/api/wsource';
+  private url = 'http://localhost:3000/api/wsource';
+  private subject = new BehaviorSubject<WSource[]>([]);
+  wsources$ = this.subject.asObservable();
+
   constructor(private http: HttpClient, private userService: UserService) {}
 
-  get(): Observable<WSource[]> {
+  getAll(): Observable<WSource[]> {
     return this.http
-      .get<WSourceResponse<WSource[]>>(this.wsourceUrl)
-      .map(res => res.data);
+      .get<WSourceResponse<WSource[]>>(this.url)
+      .map(res => res.data)
+      .do(ws => this.subject.next(ws));
   }
 
   create(wsource: WSource) {
-    const url = this.wsourceUrl;
-    return this.http.post(url, wsource, httpOptions).subscribe(data => {
-      console.log(data);
-    });
+    return this.http
+      .post<Response<WSource>>(this.url, wsource, httpOptions)
+      .map(res => res.data)
+      .do(ws => this.subject.next([ws, ...this.subject.getValue()]));
+  }
+
+  // now it can delete just unused currency
+  // e.g if secondary key is used, then it will fail
+  delete(id): Observable<any> {
+    return this.http
+      .delete(`${this.url}/${id}`)
+      .do(() =>
+        this.subject.next(R.filter(c => c.id !== id, this.subject.getValue())),
+      );
   }
 }
