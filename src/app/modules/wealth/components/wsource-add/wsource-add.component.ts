@@ -11,9 +11,8 @@ import { WSource } from '../../services/wsource';
   styleUrls: ['./wsource-add.component.css'],
 })
 export class WsourceAddComponent implements OnInit {
-  @Input() wsources: WSource[];
   @Input() types: MetaUnit[];
-  @Input() currencies: MetaUnit[];
+  @Input() currencies: Currency[];
   @Input() create: (any) => void;
 
   name: string;
@@ -31,7 +30,7 @@ export class WsourceAddComponent implements OnInit {
     this.create({
       name: this.name,
       type: this.type.id,
-      currencies: this.currencies,
+      currencies: [this.currency],
     });
   }
 }

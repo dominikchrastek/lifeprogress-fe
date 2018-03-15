@@ -32,7 +32,12 @@ export class WsourceService {
     return this.http
       .post<Response<WSource>>(this.url, wsource, httpOptions)
       .map(res => res.data)
-      .do(ws => this.subject.next([ws, ...this.subject.getValue()]));
+      .do(
+        ws =>
+          this.subject.getValue()
+            ? this.subject.next([ws, ...this.subject.getValue()])
+            : this.subject.next([ws]),
+      );
   }
 
   // now it can delete just unused currency

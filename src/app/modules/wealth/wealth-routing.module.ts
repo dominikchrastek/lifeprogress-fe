@@ -17,8 +17,10 @@ const routes: Routes = [
     path: 'wealth-source',
     component: WsourceComponent,
   },
+
   {
     path: '**',
+    component: DashboardComponent,
   },
 ];
 

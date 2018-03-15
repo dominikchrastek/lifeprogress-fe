@@ -1,6 +1,8 @@
 <div *ngIf="meta$ | async as meta">
+  <div *ngIf="currencies$ | async as currencies">
+    <wealth-wsource-add [create]="create" [types]="meta.ws_types" [currencies]="currencies"></wealth-wsource-add>
+  </div>
   <span *ngIf="wsources$ | async as wsources">
-    <wealth-wsource-add [create]="create" [types]="meta.ws_types" [currencies]="meta.currencies" [wsources]="wsources"></wealth-wsource-add>
     <wealth-wsource-list [delete]="delete" [wsources]="wsources"></wealth-wsource-list>
   </span>
 </div>

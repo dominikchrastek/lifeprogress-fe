@@ -12,10 +12,7 @@ export class CurrencyAddComponent implements OnInit {
   constructor() {}
 
   handleCreate() {
-    console.log(this);
     this.create(this.name);
   }
-  ngOnInit() {
-    console.log(this);
-  }
+  ngOnInit() {}
 }
