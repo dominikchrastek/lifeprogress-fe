@@ -2,7 +2,8 @@ import { BehaviorSubject, Observable } from 'rxjs/Rx';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
-import { User, UserData } from './user';
+import { User } from './user';
+import { Response } from '../models/response';
 
 @Injectable()
 export class UserService {
@@ -24,7 +25,7 @@ export class UserService {
       return this.subject;
     }
     return this.http
-      .get<UserData>(`${this.userUrl}/${id}`)
+      .get<Response<User>>(`${this.userUrl}/${id}`)
       .map(user => user.data)
       .do(user => {
         this.subject.next(user);

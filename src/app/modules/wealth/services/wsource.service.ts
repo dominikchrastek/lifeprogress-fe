@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { UserService } from '../../../services/user.service';
-import { WSource, WSourceResponse } from './wsource';
+import { WSource } from './wsource';
 import { Response } from '../../../models/response';
 import * as R from 'ramda';
 
@@ -23,7 +23,7 @@ export class WsourceService {
 
   getAll(): Observable<WSource[]> {
     return this.http
-      .get<WSourceResponse<WSource[]>>(this.url)
+      .get<Response<WSource[]>>(this.url)
       .map(res => res.data)
       .do(ws => this.subject.next(ws));
   }
