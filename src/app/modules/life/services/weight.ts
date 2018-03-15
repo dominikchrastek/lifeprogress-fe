@@ -1,7 +1,3 @@
-export interface WeightResponse<T> {
-  data: T;
-}
-
 export interface Weight {
   id: string;
   value: number;

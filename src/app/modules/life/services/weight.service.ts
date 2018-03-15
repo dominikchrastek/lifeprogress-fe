@@ -3,7 +3,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { UserService } from '../../../services/user.service';
 import { Observable, BehaviorSubject } from 'rxjs/Rx';
-import { Weight, WeightResponse, PostWeight } from './weight';
+import { Weight, PostWeight } from './weight';
+import { Response } from '../../../models/response';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -38,7 +39,7 @@ export class WeightService {
   addWeight(userId: string, weight: PostWeight): Observable<Weight> {
     const url = `${this.weightUrl}/${userId}/weight`;
     return this.http
-      .post<WeightResponse<Weight>>(url, weight, httpOptions)
+      .post<Response<Weight>>(url, weight, httpOptions)
       .map(res => res.data)
       .do(w => this.subject.next(sortStuff([w, ...this.subject.getValue()])));
   }
@@ -46,7 +47,7 @@ export class WeightService {
   fetchWeights(userId: string): Observable<Weight[]> {
     const url = `${this.weightUrl}/${userId}/weight`;
     return this.http
-      .get<WeightResponse<Weight[]>>(url)
+      .get<Response<Weight[]>>(url)
       .map(res => res.data)
       .do(weights => this.subject.next(weights));
   }
