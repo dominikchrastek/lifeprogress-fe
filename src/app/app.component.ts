@@ -12,7 +12,7 @@ import { User } from './services/user';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
-  title = 'app';
+  title = 'Life Manager';
   meta$: Observable<Meta>;
   user$: Observable<User>;
 

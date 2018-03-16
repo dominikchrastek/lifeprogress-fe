@@ -16,8 +16,23 @@ import { WsourceListComponent } from './components/wsource-list/wsource-list.com
 import { WsrecordAddComponent } from './components/wsrecord-add/wsrecord-add.component';
 import { WsrecordComponent } from './components/wsrecord/wsrecord.component';
 
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatTableModule } from '@angular/material/table';
+
 @NgModule({
-  imports: [CommonModule, WealthRoutingModule, FormsModule],
+  imports: [
+    CommonModule,
+    WealthRoutingModule,
+    FormsModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    MatTableModule,
+  ],
   providers: [WsourceService, CurrencyService, WsrecordService],
   declarations: [
     WsourceComponent,

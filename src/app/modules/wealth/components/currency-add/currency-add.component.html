@@ -1,7 +1,7 @@
 <div>
-  <label>currency:
-    <input [(ngModel)]="name" placeholder="name">
-  </label>
-
-  <button (click)="handleCreate()">create currency</button>
+  <mat-form-field>
+    <input [(ngModel)]="name" placeholder="name" matInput placeholder="Name">
+  </mat-form-field>
 </div>
+
+<button (click)="handleCreate()" mat-raised-button>create currency</button>

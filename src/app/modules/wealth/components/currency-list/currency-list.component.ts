@@ -9,6 +9,8 @@ import { Component, OnInit, Input } from '@angular/core';
 export class CurrencyListComponent implements OnInit {
   @Input() currencies: Currency[];
   @Input() delete: (string) => void;
+
+  displayedColumns: String[] = ['name', 'actions'];
   constructor() {}
 
   handleDelete(id) {

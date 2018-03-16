@@ -1,16 +1,36 @@
 <div>
-  <label>name:
-    <input [(ngModel)]="name" placeholder="name">
-  </label>
-  <label>value:
-    <input [(ngModel)]="value" placeholder="value">
-  </label>
-  <select [(ngModel)]="wsource" (ngModelChange)="updateWSource($event)">
-    <option *ngFor="let wsource of wsources " [ngValue]="wsource">{{wsource.name}}</option>
-  </select>
-  <select [(ngModel)]="currency">
-    <option *ngFor="let currency of currencies " [ngValue]="currency">{{currency.name}}</option>
-  </select>
+  <div>
+    <mat-form-field>
+      <input [(ngModel)]="name" placeholder="name" matInput placeholder="Name">
+    </mat-form-field>
+  </div>
 
-  <button (click)="handleCreate()">save</button>
+  <div>
+    <mat-form-field>
+      <input [(ngModel)]="value" placeholder="value" matInput placeholder="Value">
+    </mat-form-field>
+  </div>
+
+  <div>
+    <mat-form-field>
+      <mat-select placeholder="Wealth source" (selectionChange)="updateWSource($event)" [(ngModel)]="wsource">
+        <mat-option *ngFor="let wsource of wsources " [value]="wsource">
+          {{wsource.name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+
+  <div>
+    <mat-form-field>
+      <mat-select placeholder="Currency" [(ngModel)]="currency">
+        <mat-option *ngFor="let currency of currencies " [value]="currency">
+          {{currency.name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <button (click)="handleCreate()" mat-raised-button>save</button>
 </div>

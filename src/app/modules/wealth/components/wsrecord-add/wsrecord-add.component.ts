@@ -8,6 +8,7 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import * as R from 'ramda';
+import { MatSelectChange } from '@angular/material';
 @Component({
   selector: 'wealth-wsrecord-add',
   templateUrl: './wsrecord-add.component.html',
@@ -17,8 +18,13 @@ export class WsrecordAddComponent implements OnInit, OnChanges {
   @Input() wsources: WSource[];
   currencies: Currency[];
 
+  setCurrency = (currency: Currency) => {
+    this.currency = currency;
+  };
+
   setCurrencies = (currencies: Currency[]) => {
     this.currencies = currencies;
+    this.setCurrency(R.head(currencies));
   };
 
   name: string;
@@ -30,8 +36,8 @@ export class WsrecordAddComponent implements OnInit, OnChanges {
 
   ngOnInit() {}
 
-  updateWSource = (wsource: WSource) => {
-    this.setCurrencies(wsource.currencies);
+  updateWSource = (change: MatSelectChange) => {
+    this.setCurrencies(change.value.currencies);
   };
 
   ngOnChanges() {

@@ -9,6 +9,8 @@ import { Component, OnInit, Input } from '@angular/core';
 export class WsourceListComponent implements OnInit {
   @Input() delete: (string) => void;
   @Input() wsources: WSource[];
+
+  displayedColumns = ['name', 'type', 'currencies', 'actions'];
   constructor() {}
 
   handleDelete(id) {

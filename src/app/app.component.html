@@ -1,13 +1,22 @@
-<h1>
-  {{title}}
-  <span *ngIf="user$ | async as user">{{user.name}}</span>
-</h1>
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <h1 class="nav-title">{{title}}</h1>
+    <button mat-button [matMenuTriggerFor]="wealth">Wealth</button>
+    <mat-menu #wealth="matMenu">
+      <button routerLink="/wealth" mat-menu-item>Wealth</button>
+      <button routerLink="/wealth/wealth-source" mat-menu-item>Wealth sources</button>
+      <button routerLink="/wealth/wealth-record" mat-menu-item>Wealth records</button>
+      <button routerLink="/wealth/currency" mat-menu-item>Currencies</button>
+    </mat-menu>
+    <button mat-button [matMenuTriggerFor]="life">Life</button>
+    <mat-menu #life="matMenu">
+      <button routerLink="/life" mat-menu-item>Life</button>
+    </mat-menu>
+    <button mat-button routerLink="">Home</button>
+    <span class="example-spacer"></span>
+    <span *ngIf="user$ | async as user">{{user.name}}</span>
+  </mat-toolbar-row>
+</mat-toolbar>
 
-<button routerLink="/wealth">Wealth</button>
-<button routerLink="/wealth/wealth-source">Wealth sources</button>
-<button routerLink="/wealth/wealth-record">Wealth records</button>
-<button routerLink="/wealth/currency">Currencies</button>
-<button routerLink="/life">Life</button>
-<button routerLink="">Home</button>
 
 <router-outlet></router-outlet>
