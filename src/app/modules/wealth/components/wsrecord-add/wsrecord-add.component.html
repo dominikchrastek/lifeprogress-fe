@@ -1,0 +1,16 @@
+<div>
+  <label>name:
+    <input [(ngModel)]="name" placeholder="name">
+  </label>
+  <label>value:
+    <input [(ngModel)]="value" placeholder="value">
+  </label>
+  <select [(ngModel)]="wsource" (ngModelChange)="updateWSource($event)">
+    <option *ngFor="let wsource of wsources " [ngValue]="wsource">{{wsource.name}}</option>
+  </select>
+  <select [(ngModel)]="currency">
+    <option *ngFor="let currency of currencies " [ngValue]="currency">{{currency.name}}</option>
+  </select>
+
+  <button (click)="handleCreate()">save</button>
+</div>

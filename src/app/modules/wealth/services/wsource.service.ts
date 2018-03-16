@@ -17,7 +17,10 @@ const httpOptions = {
 export class WsourceService {
   private url = 'http://localhost:3000/api/wsource';
   private subject = new BehaviorSubject<WSource[]>([]);
+  private userSubject = new BehaviorSubject<WSource[]>([]);
+
   wsources$ = this.subject.asObservable();
+  wsourcesUser$ = this.userSubject.asObservable();
 
   constructor(private http: HttpClient, private userService: UserService) {}
 
@@ -26,6 +29,19 @@ export class WsourceService {
       .get<Response<WSource[]>>(this.url)
       .map(res => res.data)
       .do(ws => this.subject.next(ws));
+  }
+
+  createUserWSource(userId: string, wsId: string) {
+    const url = `http://localhost:3000/api/user/${userId}/wsource/${wsId}`;
+    return this.http.post(url, null, httpOptions);
+  }
+
+  getUserWsources(userId: string) {
+    const url = `http://localhost:3000/api/user/${userId}/wsource`;
+    return this.http
+      .get<Response<WSource[]>>(url)
+      .map(res => res.data)
+      .do(ws => this.userSubject.next(ws));
   }
 
   create(wsource: WSource) {

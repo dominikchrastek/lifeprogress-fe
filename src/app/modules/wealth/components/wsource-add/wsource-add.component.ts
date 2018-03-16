@@ -1,3 +1,5 @@
+import { MetaService } from './../../../../services/meta.service';
+import { CurrencyService } from './../../services/currency.service';
 import { Currency } from './../../services/currency';
 import { MetaUnit } from './../../../../services/meta';
 import { Observable } from 'rxjs/Rx';
@@ -19,7 +21,10 @@ export class WsourceAddComponent implements OnInit {
   type: MetaUnit;
   currency: MetaUnit;
 
-  constructor() {}
+  constructor(
+    private currencyService: CurrencyService,
+    private metaService: MetaService,
+  ) {}
 
   ngOnInit() {
     this.type = this.types[0];

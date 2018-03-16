@@ -1,3 +1,4 @@
+import { WsrecordService } from './services/wsrecord.service';
 import { CurrencyService } from './services/currency.service';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -12,10 +13,12 @@ import { CurrencyListComponent } from './components/currency-list/currency-list.
 import { CurrencyAddComponent } from './components/currency-add/currency-add.component';
 import { WsourceAddComponent } from './components/wsource-add/wsource-add.component';
 import { WsourceListComponent } from './components/wsource-list/wsource-list.component';
+import { WsrecordAddComponent } from './components/wsrecord-add/wsrecord-add.component';
+import { WsrecordComponent } from './components/wsrecord/wsrecord.component';
 
 @NgModule({
   imports: [CommonModule, WealthRoutingModule, FormsModule],
-  providers: [WsourceService, CurrencyService],
+  providers: [WsourceService, CurrencyService, WsrecordService],
   declarations: [
     WsourceComponent,
     CurrencyComponent,
@@ -24,6 +27,8 @@ import { WsourceListComponent } from './components/wsource-list/wsource-list.com
     CurrencyAddComponent,
     WsourceAddComponent,
     WsourceListComponent,
+    WsrecordComponent,
+    WsrecordAddComponent,
   ],
 })
 export class WealthModule {}

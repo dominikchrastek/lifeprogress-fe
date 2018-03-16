@@ -1,3 +1,4 @@
+import { User } from './../../../../services/user';
 import { CurrencyService } from './../../services/currency.service';
 import { MetaService } from './../../../../services/meta.service';
 import { WsourceService } from './../../services/wsource.service';

@@ -1,3 +1,4 @@
+import { WsrecordComponent } from './components/wsrecord/wsrecord.component';
 import { CurrencyComponent } from './components/currency/currency.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { NgModule } from '@angular/core';
@@ -16,6 +17,10 @@ const routes: Routes = [
   {
     path: 'wealth-source',
     component: WsourceComponent,
+  },
+  {
+    path: 'wealth-record',
+    component: WsrecordComponent,
   },
 
   {

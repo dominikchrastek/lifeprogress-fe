@@ -1,3 +1,4 @@
+import { Currency } from './currency';
 import { MetaUnit } from '../../../services/meta';
 
 export class WSource {
@@ -5,5 +6,5 @@ export class WSource {
   currency_id?: string;
   name: string;
   type: string;
-  currencies?: object;
+  currencies?: Currency[];
 }
