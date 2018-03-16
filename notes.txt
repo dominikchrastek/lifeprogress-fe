@@ -1,0 +1,29 @@
+ADMIN
+can
+
+WEALTH SOURCE TYPE
+- CREATE, REMOVE, EDIT, READ
+WEALTH SOURCE
+- CREATE, REMOVE, EDIT, READ
+CURRENCY
+- CREATE, REMOVE, EDIT, READ
+
+and also everything that USER can
+
+USER
+WEALTH SOURCE TYPE
+- READ
+WEALTH SOURCE
+- READ
+- can be linked with user: e.g. `n` users can have `1` WEALTH SOURCE
+- can be unlinked
+WEALTH RECORD
+- CREATE, REMOVE, EDIT, READ
+WEIGHT
+- CREATE
+
+
+MODULES
+make it modular later, user will have to pick module if he will wanna use it
+atm: LIFE, WEALTH
+later: SKILLS
