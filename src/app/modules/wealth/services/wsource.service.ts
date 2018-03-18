@@ -55,7 +55,7 @@ export class WsourceService {
     return this.http
       .get<Response<WSource[]>>(url)
       .map(res => res.data)
-      .do(ws => this.subjectUser.next(ws));
+      .do(ws => (ws ? this.subjectUser.next(ws) : this.subjectUser.next([])));
   }
 
   create(wsource: WSource) {
