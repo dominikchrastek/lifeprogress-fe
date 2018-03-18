@@ -1,0 +1,22 @@
+<span *ngIf="user$ | async as user">
+  Hello {{user.name}}. Create your wealth source
+
+  <span *ngIf="wsources?.length > 0">
+    <!-- <span *ngIf="wsources$ | async as wsources"> -->
+    <div>
+      <mat-form-field>
+        <mat-select placeholder="Wealth source" [(ngModel)]="wsource">
+          <mat-option *ngFor="let wsource of wsources " [value]="wsource">
+            {{wsource.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </span>
+
+  <button (click)="handleCreate()" mat-raised-button>save</button>
+
+  <span *ngIf="wsourcesUser$ | async as wsources">
+    <wealth-wsource-list [delete]="delete" [wsources]="wsources"></wealth-wsource-list>
+  </span>
+</span>

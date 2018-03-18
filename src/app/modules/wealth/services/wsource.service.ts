@@ -1,7 +1,7 @@
+import { Observable } from 'rxjs/Rx';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Injectable } from '@angular/core';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs/Observable';
 import { UserService } from '../../../services/user.service';
 import { WSource } from './wsource';
 import { Response } from '../../../models/response';
@@ -17,13 +17,16 @@ const httpOptions = {
 export class WsourceService {
   private url = 'http://localhost:3000/api/wsource';
   private subject = new BehaviorSubject<WSource[]>([]);
-  private userSubject = new BehaviorSubject<WSource[]>([]);
+  private subjectUser = new BehaviorSubject<WSource[]>([]);
 
   wsources$ = this.subject.asObservable();
-  wsourcesUser$ = this.userSubject.asObservable();
+  wsourcesUser$ = this.subjectUser.asObservable();
 
   constructor(private http: HttpClient, private userService: UserService) {}
 
+  private getUserUrl(id: string): string {
+    return `http://localhost:3000/api/user/${id}/wsource`;
+  }
   getAll(): Observable<WSource[]> {
     return this.http
       .get<Response<WSource[]>>(this.url)
@@ -31,17 +34,28 @@ export class WsourceService {
       .do(ws => this.subject.next(ws));
   }
 
-  createUserWSource(userId: string, wsId: string) {
-    const url = `http://localhost:3000/api/user/${userId}/wsource/${wsId}`;
-    return this.http.post(url, null, httpOptions);
+  getWsourcesToUserSelect(): Observable<WSource[]> {
+    return Observable.of(
+      R.without(this.subjectUser.getValue(), this.subject.getValue()),
+    );
+  }
+
+  createUserWSource(wsId: string, userId: string) {
+    const url = `${this.getUserUrl(userId)}/${wsId}`;
+    return this.http.post(url, null, httpOptions).do(() => {
+      const ws = this.subject.getValue().find(R.propEq('id', wsId));
+      return this.subjectUser.getValue()
+        ? this.subjectUser.next([ws, ...this.subjectUser.getValue()])
+        : this.subjectUser.next([ws]);
+    });
   }
 
   getUserWsources(userId: string) {
-    const url = `http://localhost:3000/api/user/${userId}/wsource`;
+    const url = this.getUserUrl(userId);
     return this.http
       .get<Response<WSource[]>>(url)
       .map(res => res.data)
-      .do(ws => this.userSubject.next(ws));
+      .do(ws => this.subjectUser.next(ws));
   }
 
   create(wsource: WSource) {
@@ -63,6 +77,17 @@ export class WsourceService {
       .delete(`${this.url}/${id}`)
       .do(() =>
         this.subject.next(R.filter(c => c.id !== id, this.subject.getValue())),
+      );
+  }
+
+  deleteUsers(wsId: string, userId: string): Observable<any> {
+    const url = `${this.getUserUrl(userId)}/${wsId}`;
+    return this.http
+      .delete(url)
+      .do(() =>
+        this.subjectUser.next(
+          R.filter(c => c.id !== wsId, this.subjectUser.getValue()),
+        ),
       );
   }
 }

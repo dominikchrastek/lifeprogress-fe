@@ -1,3 +1,4 @@
+import { WsourceUserComponent } from './components/wsource-user/wsource-user.component';
 import { WsrecordComponent } from './components/wsrecord/wsrecord.component';
 import { CurrencyComponent } from './components/currency/currency.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
@@ -21,6 +22,10 @@ const routes: Routes = [
   {
     path: 'wealth-record',
     component: WsrecordComponent,
+  },
+  {
+    path: 'wealth-source/user',
+    component: WsourceUserComponent,
   },
 
   {
