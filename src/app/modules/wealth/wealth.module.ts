@@ -22,6 +22,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTableModule } from '@angular/material/table';
 import { WsourceUserComponent } from './components/wsource-user/wsource-user.component';
+import { WsrecordListComponent } from './components/wsrecord-list/wsrecord-list.component';
 
 @NgModule({
   imports: [
@@ -46,6 +47,7 @@ import { WsourceUserComponent } from './components/wsource-user/wsource-user.com
     WsrecordComponent,
     WsrecordAddComponent,
     WsourceUserComponent,
+    WsrecordListComponent,
   ],
 })
 export class WealthModule {}

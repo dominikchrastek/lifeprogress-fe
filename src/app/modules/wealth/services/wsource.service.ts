@@ -7,6 +7,7 @@ import { WSource } from './wsource';
 import { Response } from '../../../models/response';
 import * as R from 'ramda';
 
+// TODO: DRY
 const httpOptions = {
   headers: new HttpHeaders({
     'Content-Type': 'application/json',

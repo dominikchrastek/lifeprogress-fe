@@ -1,5 +1,10 @@
 <!-- <div *ngIf="meta$ | async as meta"> -->
 <span *ngIf="wsources$ | async as wsources">
   <wealth-wsrecord-add [wsources]="wsources"></wealth-wsrecord-add>
+
+  <button (click)="fetch()" mat-raised-button>Fetch data from wsources</button>
+  <span *ngIf="wsrecords$ |async as wsrecords">
+    <wealth-wsrecord-list [wsrecords]="wsrecords"></wealth-wsrecord-list>
+  </span>
 </span>
 <!-- </div> -->

@@ -1,3 +1,5 @@
+import { WsrecordService } from './../../services/wsrecord.service';
+import { UserService } from './../../../../services/user.service';
 import { Currency } from './../../services/currency';
 import { WSource } from './../../services/wsource';
 import {
@@ -27,12 +29,14 @@ export class WsrecordAddComponent implements OnInit, OnChanges {
     this.setCurrency(R.head(currencies));
   };
 
-  name: string;
   currency: Currency;
   wsource: WSource;
   value: number;
 
-  constructor() {}
+  constructor(
+    private userService: UserService,
+    private wsrecordService: WsrecordService,
+  ) {}
 
   ngOnInit() {}
 
@@ -50,6 +54,12 @@ export class WsrecordAddComponent implements OnInit, OnChanges {
   }
 
   handleCreate() {
-    console.log('create');
+    const record = {
+      value: Number(this.value),
+      currencyId: this.currency.id,
+      wsourceId: this.wsource.id,
+      userId: this.userService.getUserId(),
+    };
+    this.wsrecordService.create(record).subscribe(null, console.error);
   }
 }
